@@ -6,15 +6,14 @@ import {
 import {
   RecoveryMethod,
   type UserWallet,
-  useSignOut,
   useUser,
   useWallets,
 } from '@openfort/react'
 import { useState } from 'react'
 import { useAccount } from 'wagmi'
+import { supabase } from '../../../integrations/supabase'
 import { CreateWallet, CreateWalletSheet } from './WalletCreation'
 import { WalletRecoverPasswordSheet } from './WalletPasswordSheets'
-import { supabase } from '../../../integrations/supabase'
 
 function WalletRecoveryBadge({ wallet }: { wallet: UserWallet }) {
   let Icon = LockClosedIcon
@@ -52,7 +51,7 @@ export function WalletListCard() {
     isConnecting,
   } = useWallets()
   const { user, isAuthenticated } = useUser()
-  const { isConnected } = useAccount()                                                                                                                                                                          
+  const { isConnected } = useAccount()
 
   const [createWalletSheetOpen, setCreateWalletSheetOpen] = useState(false)
   const [walletToRecover, setWalletToRecover] = useState<UserWallet | null>(
