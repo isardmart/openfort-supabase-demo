@@ -12,23 +12,26 @@ type TabProps = {
 const DesktopTab = ({ name, isActive, ...buttonProps }: TabProps) => {
   return (
     <button
-      className="relative h-8 mx-2.5 transition-colors cursor-pointer"
+      className="relative h-9 mx-2.5 transition-all cursor-pointer"
       style={
         {
           '--tab-bg-color': isActive
             ? 'var(--color-zinc-800)'
             : 'var(--color-zinc-700)',
-          opacity: isActive ? 1 : 0.6,
+          opacity: isActive ? 1 : 0.75,
         } as React.CSSProperties
       }
       {...buttonProps}
     >
-      <div className="absolute w-5 h-8 bg-(--tab-bg-color) rotate-20 transform origin-top-left top-1" />
-      <div className="absolute w-5 h-8 bg-(--tab-bg-color) -rotate-20 transform origin-top-right right-0 top-1" />
+      <div className="absolute w-5 h-9 bg-(--tab-bg-color) rotate-20 transform origin-top-left top-1" />
+      <div className="absolute w-5 h-9 bg-(--tab-bg-color) -rotate-20 transform origin-top-right right-0 top-1" />
       <div className="absolute inset-0 rounded-md bg-(--tab-bg-color)" />
+      {isActive && (
+        <div className="absolute inset-0 rounded-md border border-zinc-600" />
+      )}
 
       <span
-        className={`${isActive ? 'text-white' : 'text-zinc-400'} whitespace-nowrap bg-(--tab-bg-color) z-10 relative mx-2 pb-4`}
+        className={`${isActive ? 'text-white font-medium' : 'text-zinc-300'} whitespace-nowrap bg-(--tab-bg-color) z-10 relative mx-3 pb-4 text-sm`}
       >
         {name}
       </span>
@@ -50,7 +53,7 @@ export const DesktopTabGroup = ({
   showTabs,
 }: TabGroupProps) => {
   return (
-    <div className="absolute left-[100%] top-2 rotate-90 transform origin-top-left hidden xs:block">
+    <div className="absolute left-full top-2 rotate-90 transform origin-top-left hidden xs:block">
       <div
         className="flex gap-2 transition-transform duration-500"
         style={{
@@ -78,12 +81,12 @@ const MobileTab = ({
 }: TabProps) => {
   return (
     <button
-      className="relative h-8 mx-2.5 transition-colors cursor-pointer"
+      className={`relative py-2 px-3 transition-all cursor-pointer rounded-lg ${isActive ? 'bg-zinc-700/50' : ''}`}
       {...buttonProps}
     >
-      <Icon className="h-5 w-5 mx-auto mb-1" />
+      <Icon className={`h-6 w-6 mx-auto mb-1 ${isActive ? 'text-primary' : 'text-zinc-400'}`} />
       <span
-        className={`${isActive ? 'text-white' : 'text-zinc-400'} whitespace-nowrap`}
+        className={`${isActive ? 'text-white font-medium' : 'text-zinc-400'} whitespace-nowrap text-xs`}
       >
         {name}
       </span>
@@ -97,7 +100,7 @@ export const MobileTabGroup = ({
   setCurrentTab,
 }: TabGroupProps) => {
   return (
-    <div className="mt-auto xs:hidden flex pt-6 pb-2 items-end justify-between text-zinc-400 text-sm">
+    <div className="mt-auto xs:hidden flex pt-4 pb-2 px-2 items-end justify-around bg-zinc-900/60 -mx-6 -mb-6 rounded-b-lg border-t border-zinc-700/50">
       {tabs?.map((tab) => (
         <MobileTab
           key={tab.name}

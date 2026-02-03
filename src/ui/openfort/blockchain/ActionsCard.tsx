@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { getAddress, parseAbi } from 'viem'
 import { useAccount, useChains, useReadContract, useWriteContract } from 'wagmi'
+import { TransferButton } from '../../../components/ui/Transferbutton'
 import { TruncateData } from '../../../components/ui/TruncateData'
 
 const MintContract = () => {
@@ -124,6 +125,8 @@ export const ActionsCard = () => {
         </div>
       )}
       <MintContract />
+      <hr className="my-6 border-zinc-700" />
+      <TransferButton />
     </div>
   )
 }
